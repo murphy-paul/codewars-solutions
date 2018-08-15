@@ -1,18 +1,20 @@
 function uniqueInOrder(iterable) {
-  if (iterable === undefined || iterable.lenght === 0) {
+  if (iterable === undefined || iterable.length === 0) {
     return [];
   }
 
   const input = Array.isArray(iterable) ? iterable :  iterable.split('');
 
-  return loop([], input);
+  return recur([], input);
 }
 
 /**
+ * Recursive solution to remove duplicates
+ *
  * result - array containing the result
  * iterable - input array to the function
  */
-function loop(result, iterable) {
+function recur(result, iterable) {
   if(iterable.length === 0) {
     return result;
   }
@@ -26,7 +28,25 @@ function loop(result, iterable) {
       result.push(next);
     }
   }
-  return loop(result, iterable);
+  return recur(result, iterable);
+}
+
+/**
+ * Solution using a imperative loop
+ */
+function loop(it) {
+
+  let result = [];
+  let last;
+
+  for (let i = 0; i < it.length; i++) {
+    if (it[i] !== last) {
+      result.push(last = it[i])
+    }
+  }
+
+  return result
+
 }
 
 module.exports = uniqueInOrder;
